@@ -1,0 +1,36 @@
+html,
+body {
+  width: 100vw;
+  background-image: url("/img/SALOKA_LEBARAN_DESKTOP(edited)1.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.form-signin {
+  width: 100%;
+  padding: 15px;
+  max-width: 30vw;
+  position: relative;
+  left: 60vw;
+  top: 10vw;
+}
+
+.form-signin .checkbox {
+  font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="username"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
