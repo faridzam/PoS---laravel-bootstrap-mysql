@@ -9,8 +9,13 @@ class LoginController extends Controller
 {
     public function index()
     {
-        return view('login.index', [
-            'title' => 'login'
+        return view('login.index');
+    }
+
+    public function show($id)
+    {
+        return view('user.profile', [
+            'user' => User::findOrFail($id)
         ]);
     }
 

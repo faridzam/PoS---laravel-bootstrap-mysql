@@ -36,4 +36,5 @@ Route::post('/dashboardDeposit', function () {
 });
 
 Route::resource('/dashboardProduk', ProdukController::class)->middleware('auth');
+
 Route::resource('/dashboardPenjualan', PenjualanController::class)->middleware('auth');

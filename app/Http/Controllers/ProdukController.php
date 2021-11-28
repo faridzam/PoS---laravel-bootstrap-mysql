@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\produk;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreprodukRequest;
 use App\Http\Requests\UpdateprodukRequest;
 
@@ -45,14 +46,13 @@ class ProdukController extends Controller
     public function store(StoreprodukRequest $request)
     {
         //  
-        $validated = $request->validate([
+        $request->validate([
             'nama_produk' => 'required',
             'harga_produk' => 'required',
             'stok_produk' => 'required',
         ]);
 
-        //produk::create($validated->all());
-        $produk = produk::find($id)->update($validated->all());
+        produk::create($request->all());
 
         return redirect()->route(route: 'dashboardProduk.index')
             ->with('SUKSES!','Produk telah ditambahkan.');
@@ -92,21 +92,18 @@ class ProdukController extends Controller
     public function update(UpdateprodukRequest $request, produk $produk, $id)
     {
         //
-        $request->validate([
-            'nama_produk' => 'required|unique:produks',
-            'harga_produk' => 'required',
-            'stok_produk' => 'required'
-        ]);
-
-        $produk = produk::findOrfail($id);
+        // $request->validate([
+        //     'nama_produk' => 'required|unique:produks',
+        //     'harga_produk' => 'required',
+        //     'stok_produk' => 'required'
+        // ]);
         
+        $produk = produk::findOrfail($id);
         $produk->update($request->all());
 
-        if ($produk->save()) {
-            return redirect()->route(route: 'dashboardProduk.index')->with('SUKSES!', 'Produk telah diupdate');
-        } else {
-            // handle error.
-        }
+
+        return redirect()->route(route: 'dashboardProduk.index')->with('SUKSES!', 'Produk telah diupdate');
+        
     }
 
     /**

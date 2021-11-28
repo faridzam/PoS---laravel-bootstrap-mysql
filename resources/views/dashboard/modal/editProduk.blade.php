@@ -14,7 +14,7 @@
                         @csrf
                         @method('PUT')
 
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <input type="hidden" class="form-control" id="id" name="id" value="{{ $value->id }}">
                         </div>
                         <div class="form-group">
@@ -22,18 +22,18 @@
                         </div>
                         <div class="form-group">
                             <input type="hidden" class="form-control" id="updated_at" name="updated_at" value="{{Carbon\Carbon::now()->format('Y-m-d')."+".Carbon\Carbon::now()->format('H:i:s')}}">
-                        </div>
+                        </div> --}}
                     <div class="form-group">
                         <label class="col-form-label">Nama Produk</label>
-                        <input type="text" class="form-control" id="nama_produk" name="nama_produk" value="{{ $value->nama_produk }}">
+                        <input type="text" class="form-control" id="nama_produk" name="nama_produk" value="{{ old('nama_produk', $value->nama_produk) }}">
                     </div>
                     <div class="form-group">
                         <label class="col-form-label">Harga Produk</label>
-                        <input type="number" class="form-control" id="harga_produk" name="harga_produk" value="{{ $value->harga_produk }}">
+                        <input type="number" class="form-control" id="harga_produk" name="harga_produk" value="{{ old('harga_produk', $value->harga_produk) }}">
                     </div>
                     <div class="form-group">
                         <label class="col-form-label">Stok Produk</label>
-                        <input type="number" class="form-control" id="stok_produk" name="stok_produk" value="{{ $value->stok_produk }}">
+                        <input type="number" class="form-control" id="stok_produk" name="stok_produk" value="{{ old('stok_produk', $value->stok_produk) }}">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -14,7 +14,6 @@
             text-align: center;
         }
         .qty .plus {
-            background-color: darkgreen;
             cursor: pointer;
             display: inline-block;
             vertical-align: top;
@@ -26,7 +25,6 @@
             border-radius: 50%;
             }
         .qty .minus {
-            background-color:darkred;
             cursor: pointer;
             display: inline-block;
             vertical-align: top;
@@ -74,6 +72,8 @@
     <h1>Penjualan</h1>
 
     <div class="container-fluid mt-4 row">
+        <form class="container row" action="{{ route('dashboardPenjualan.store') }}" method="POST">
+        @csrf
         @foreach($produk as $value)
 
             <div class="col mt-2">
@@ -85,18 +85,23 @@
                         <h5 class="card-title">stok : {{ $value->stok_produk }}</h5>
                     </div>
 
-                <form>
                     <div class="qty mt-4">
-                        <span class="minus">-</span>
-                        <input type="number" class="count" name="kuantitas" id="kuantitas" value="0">
-                        <span class="plus">+</span>
+                        <input type="hidden" class="form-control" id="id_produk" name="id_produk" value="{{ $value->id }}">
+                        <input type="hidden" class="harga-form form-control" id="harga_produk" name="harga_produk" value="{{ $value->harga_produk }}">
+                        <label class="col-form-label">TOTAL</label>
+                        <input type="number" class="total-form form-control mt-2 mb-4" id="jumlah" name="jumlah" placeholder="0" readonly>
+                        <span class="minus bg-dark">-</span>
+                        <input type="number" class="count" name="kuantitas" id="kuantitas" placeholder="0">
+                        <span class="plus bg-dark">+</span>
                     </div>
-                </form>
                 </div>
             </div>
             </div>
-            @include('dashboard.modal.editProduk')
         @endforeach
+        <div>
+            <button type="submit" class="btn btn-pill btn-primary">PESAN</button>
+        </div>
+    </form>
     </div>
 
   @endsection
@@ -104,19 +109,35 @@
   @section('scripts')
 
     <script>
+        //
+    </script>
 
-        		$(document).ready(function(){
-		    $('.count').prop('disabled', true);
-   			$(document).on('click','.plus',function(){
-				$('.count').val(parseInt($('.count').val()) + 1 );
-    		});
-        	$(document).on('click','.minus',function(){
-    			$('.count').val(parseInt($('.count').val()) - 1 );
-    				if ($('.count').val() == -1) {
-						$('.count').val(0);
-					}
-    	    	});
- 		});
+    <script>
+
+        // if user changes value in field
+        //$('.').change(function() {
+        // maybe update the total here?
+        //}).trigger('change');
+
+
+        $('.plus').click(function() {
+        var target = $('.count', this.parentNode)[0];
+        var tot = $('.total-form', this.parentNode)[0];
+        var har = $('.harga-form', this.parentNode)[0];
+        target.value = +target.value + 1;
+        tot.value = target.value * har.value;
+        });
+
+        $('.minus').click(function() {
+        var target = $('.count', this.parentNode)[0];
+        var tot = $('.total-form', this.parentNode)[0];
+        var har = $('.harga-form', this.parentNode)[0];
+        if (target.value > 0) {
+            target.value = +target.value - 1;
+            tot.value = target.value * har.value;
+        }
+        });
+        
 
     </script>
       

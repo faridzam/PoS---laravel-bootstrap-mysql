@@ -41,6 +41,17 @@ class PenjualanController extends Controller
     public function store(StorepenjualanRequest $request)
     {
         //
+        $validated = $request->validate([
+            'id_produk' => 'required',
+            'harga_produk' => 'required',
+            'kuantitas' => 'required',
+            'jumlah' => 'required',
+        ]);
+
+        penjualan::create($validated->all());
+
+        return redirect()->route(route: 'dashboardPenjualan.index')
+            ->with('SUKSES!','order sukses.');
     }
 
     /**
