@@ -4,8 +4,9 @@ use App\Models\produk;
 use App\Models\deposit;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\DepositController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\DepositController;
+use App\Http\Controllers\PenjualanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +20,8 @@ use App\Http\Controllers\ProdukController;
 */
 
 Route::get('/', [LoginController::class, 'index'])->middleware('guest');
-Route::post('/', [LoginController::class, 'authenticate']);
-Route::post('/logout', [LoginController::class, 'logout']);
+Route::post('/', [LoginController::class, 'authenticate'])->name('login');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/dashboardDeposit', function(){
     $data = deposit::all();
@@ -34,9 +35,5 @@ Route::post('/dashboardDeposit', function () {
     return redirect('/dashboardDeposit');
 });
 
-Route::resource('dashboardProduk', ProdukController::class)->middleware('auth');
-
-
-Route::get('/dashboardPenjualan', function(){
-    return view('dashboard.penjualan');
-})->middleware('auth');
+Route::resource('/dashboardProduk', ProdukController::class)->middleware('auth');
+Route::resource('/dashboardPenjualan', PenjualanController::class)->middleware('auth');

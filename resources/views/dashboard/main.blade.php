@@ -44,6 +44,8 @@
 
     
     <!-- Custom styles for this template -->
+    @yield('styles')
+    
     <link href="css/dashboard.css" rel="stylesheet">
   </head>
   <body>

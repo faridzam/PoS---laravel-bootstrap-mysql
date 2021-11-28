@@ -29,11 +29,11 @@
                     </div>
                     <div class="form-group">
                         <label class="col-form-label">Harga Produk</label>
-                        <input type="number" class="form-control" id="recipient-name" name="harga_produk" value="{{ $value->harga_produk }}">
+                        <input type="number" class="form-control" id="harga_produk" name="harga_produk" value="{{ $value->harga_produk }}">
                     </div>
                     <div class="form-group">
                         <label class="col-form-label">Stok Produk</label>
-                        <input type="number" class="form-control" id="recipient-name" name="stok_produk" value="{{ $value->stok_produk }}">
+                        <input type="number" class="form-control" id="stok_produk" name="stok_produk" value="{{ $value->stok_produk }}">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
