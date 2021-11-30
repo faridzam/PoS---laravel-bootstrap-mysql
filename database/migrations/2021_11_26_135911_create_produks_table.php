@@ -17,7 +17,6 @@ class CreateProduksTable extends Migration
             $table->id();
             $table->text('nama_produk');
             $table->bigInteger('harga_produk');
-            $table->bigInteger('stok_produk');
             $table->timestamps();
         });
     }

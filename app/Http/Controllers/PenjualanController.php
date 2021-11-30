@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\penjualan;
+use Carbon\Carbon;
 use App\Models\produk;
+use App\Models\invoice;
+use App\Models\penjualan;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorepenjualanRequest;
 use App\Http\Requests\UpdatepenjualanRequest;
@@ -19,7 +23,10 @@ class PenjualanController extends Controller
     {
         //
         $produk=produk::all();
-        return view('dashboard.penjualan', compact('produk'));
+        $penjualan = penjualan::all();
+        $invoice = invoice::all();
+
+        return view('dashboard.penjualan', compact('produk', 'penjualan', 'invoice'));
     }
 
     /**
@@ -30,6 +37,7 @@ class PenjualanController extends Controller
     public function create()
     {
         //
+
     }
 
     /**
@@ -41,16 +49,18 @@ class PenjualanController extends Controller
     public function store(StorepenjualanRequest $request)
     {
         //
-        $validated = $request->validate([
+
+        $request->validate([
             'id_produk' => 'required',
+            'nama_produk' => 'required',
             'harga_produk' => 'required',
             'kuantitas' => 'required',
-            'jumlah' => 'required',
+            'jumlah' => 'required'
         ]);
 
-        penjualan::create($validated->all());
+        penjualan::create($request->all());
 
-        return redirect()->route(route: 'dashboardPenjualan.index')
+        return redirect()->route(route: 'dashboardInvoice.index')
             ->with('SUKSES!','order sukses.');
     }
 
@@ -60,9 +70,10 @@ class PenjualanController extends Controller
      * @param  \App\Models\penjualan  $penjualan
      * @return \Illuminate\Http\Response
      */
-    public function show(penjualan $penjualan)
+    public function show(invoice $invoice)
     {
         //
+
     }
 
     /**

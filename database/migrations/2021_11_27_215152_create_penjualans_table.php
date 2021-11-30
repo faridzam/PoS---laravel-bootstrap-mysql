@@ -16,6 +16,7 @@ class CreatePenjualansTable extends Migration
         Schema::create('penjualans', function (Blueprint $table) {
             $table->id();
             $table->integer('id_produk');
+            $table->text('nama_produk');
             $table->bigInteger('harga_produk');
             $table->integer('kuantitas');
             $table->bigInteger('jumlah');

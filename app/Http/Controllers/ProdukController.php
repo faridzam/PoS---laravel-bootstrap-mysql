@@ -49,7 +49,6 @@ class ProdukController extends Controller
         $request->validate([
             'nama_produk' => 'required',
             'harga_produk' => 'required',
-            'stok_produk' => 'required',
         ]);
 
         produk::create($request->all());

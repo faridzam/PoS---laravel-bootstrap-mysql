@@ -31,10 +31,6 @@
                         <label class="col-form-label">Harga Produk</label>
                         <input type="number" class="form-control" id="harga_produk" name="harga_produk" value="{{ old('harga_produk', $value->harga_produk) }}">
                     </div>
-                    <div class="form-group">
-                        <label class="col-form-label">Stok Produk</label>
-                        <input type="number" class="form-control" id="stok_produk" name="stok_produk" value="{{ old('stok_produk', $value->stok_produk) }}">
-                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save Update</button>

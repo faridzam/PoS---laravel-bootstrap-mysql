@@ -4,8 +4,10 @@ use App\Models\produk;
 use App\Models\deposit;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PrintController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\DepositController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PenjualanController;
 
 /*
@@ -20,8 +22,8 @@ use App\Http\Controllers\PenjualanController;
 */
 
 Route::get('/', [LoginController::class, 'index'])->middleware('guest');
-Route::post('/', [LoginController::class, 'authenticate'])->name('login');
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/', [LoginController::class, 'authenticate']);
+Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::get('/dashboardDeposit', function(){
     $data = deposit::all();
@@ -35,6 +37,10 @@ Route::post('/dashboardDeposit', function () {
     return redirect('/dashboardDeposit');
 });
 
-Route::resource('/dashboardProduk', ProdukController::class)->middleware('auth');
+Route::resource('dashboardProduk', ProdukController::class)->middleware('auth');
 
-Route::resource('/dashboardPenjualan', PenjualanController::class)->middleware('auth');
+Route::resource('dashboardPenjualan', PenjualanController::class)->middleware('auth');
+
+Route::resource('dashboardInvoice', InvoiceController::class)->middleware('auth');
+
+Route::get('printInvoice', [PrintController::class, 'print']);
