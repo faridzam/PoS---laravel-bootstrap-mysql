@@ -30,6 +30,7 @@
         @csrf
         <div class="qty mt-4 m-auto">
             <input type="hidden" class="form-control" id="penjualan" name="penjualan" value="{{ $pesananBaru }}">
+            <input type="hidden" class="form-control" id="t_id" name="t_id" value="{{ $value->t_id }}">
             <label class="col-form-label">TAGIHAN</label>
             <input type="number" class="total-form form-control mt-2 mb-4" id="tagihan" name="tagihan" value="{{ $hartot }}" readonly>
             <label class="col-form-label">KEMBALIAN</label>
@@ -39,9 +40,6 @@
         </div>
         <div>
             <button type="submit" class="btn btn-pill btn-primary">PESAN</button>
-        </div>
-        <div>
-            <a class="btn btn-pill btn-primary" href="printInvoice">PRINT</a>
         </div>
     </form>
 </div>

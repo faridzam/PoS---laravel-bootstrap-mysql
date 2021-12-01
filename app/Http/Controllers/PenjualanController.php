@@ -7,6 +7,7 @@ use App\Models\produk;
 use App\Models\invoice;
 use App\Models\penjualan;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorepenjualanRequest;
@@ -25,8 +26,9 @@ class PenjualanController extends Controller
         $produk=produk::all();
         $penjualan = penjualan::all();
         $invoice = invoice::all();
+        $TIDs = Str::random(20);
 
-        return view('dashboard.penjualan', compact('produk', 'penjualan', 'invoice'));
+        return view('dashboard.penjualan', compact('produk', 'penjualan', 'invoice', 'TIDs'));
     }
 
     /**
@@ -52,6 +54,7 @@ class PenjualanController extends Controller
 
         $request->validate([
             'id_produk' => 'required',
+            't_id' => 'nullable',
             'nama_produk' => 'required',
             'harga_produk' => 'required',
             'kuantitas' => 'required',

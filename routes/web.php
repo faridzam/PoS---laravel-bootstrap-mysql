@@ -25,17 +25,7 @@ Route::get('/', [LoginController::class, 'index'])->middleware('guest');
 Route::post('/', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
-Route::get('/dashboardDeposit', function(){
-    $data = deposit::all();
-    return view('dashboard.deposit', compact('data'));
-})->middleware('auth');
-
-Route::post('/dashboardDeposit', function () {
-    deposit::create([
-        'nominal' => request('nominal')
-    ]);
-    return redirect('/dashboardDeposit');
-});
+Route::resource('dashboardDeposit', DepositController::class)->middleware('auth');
 
 Route::resource('dashboardProduk', ProdukController::class)->middleware('auth');
 
@@ -43,4 +33,6 @@ Route::resource('dashboardPenjualan', PenjualanController::class)->middleware('a
 
 Route::resource('dashboardInvoice', InvoiceController::class)->middleware('auth');
 
-Route::get('printInvoice', [PrintController::class, 'print']);
+Route::get('printInvoice', [PrintController::class, 'printInvoice']);
+Route::get('printDeposit', [PrintController::class, 'printDeposit']);
+Route::get('printClosed', [PrintController::class, 'printClosed']);

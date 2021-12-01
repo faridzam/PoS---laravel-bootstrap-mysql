@@ -11,7 +11,7 @@
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
-<div class="container">
+<div class="container mt-5">
     <div class="container-fluid">
         <table id="deposit-table" name="deposit-table" class="table table-striped table-bordered nowrap" style="width:100%">
             <thead>
@@ -35,7 +35,9 @@
         </table>
     </div>
 </div>
-{{-- </table> --}}
+<div class="container d-flex justify-content-center">
+    <a href="printDeposit" class="btn btn-sm btn-primary" id="print-button">PRINT</a>
+</div>
 
 @endsection
 
@@ -75,6 +77,22 @@
             }
         } );
     } );
+</script>
+
+<script>
+    $('#print-button').click(function(e){
+    	e.preventDefault();
+	var route = "{{ URL('/printDeposit') }}";
+	var formData = {
+	     	{{ $data }}
+	});
+    	$.post(route, formData, function(data){
+    		if(data.success == 'true')
+    			alert('Cetak Data Berhasil...');
+    		else
+    			alert('Cetak Data GAGAL...');
+    	});
+    });
 </script>
 
 @endsection

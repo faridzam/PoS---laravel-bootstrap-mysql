@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\deposit;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoredepositRequest;
 use App\Http\Requests\UpdatedepositRequest;
-use App\Models\deposit;
 
 class DepositController extends Controller
 {
@@ -16,6 +19,10 @@ class DepositController extends Controller
     public function index()
     {
         //
+        
+        $data = deposit::orderBy('created_at', 'desc')->get();
+
+        return view('dashboard.deposit', compact('data'));
     }
 
     /**
@@ -37,6 +44,12 @@ class DepositController extends Controller
     public function store(StoredepositRequest $request)
     {
         //
+        deposit::create([
+            'nominal' => request('nominal')
+        ]);
+
+        return redirect()->route(route: 'dashboardDeposit.index')
+            ->with('SUKSES!','order sukses.');
     }
 
     /**
@@ -48,6 +61,7 @@ class DepositController extends Controller
     public function show(deposit $deposit)
     {
         //
+        
     }
 
     /**

@@ -15,6 +15,7 @@ class CreatePenjualansTable extends Migration
     {
         Schema::create('penjualans', function (Blueprint $table) {
             $table->id();
+            $table->string('t_id')->nullable();
             $table->integer('id_produk');
             $table->text('nama_produk');
             $table->bigInteger('harga_produk');

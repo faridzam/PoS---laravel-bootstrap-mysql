@@ -26,8 +26,8 @@ class InvoiceController extends Controller
         $latest = DB::table('penjualans')->latest('created_at')->first();
 
         if(!$penjualan->count() !== 0) {
-            $dtn = $latest->created_at;
-            $pesananBaru = DB::table('penjualans')->where('created_at', '=', $dtn)->get();
+            $dtn = $latest->t_id;
+            $pesananBaru = DB::table('penjualans')->where('t_id', '=', $dtn)->get();
             $hartot = $pesananBaru->sum('jumlah');
         } else {
             $pesananBaru = $penjualan;
@@ -62,6 +62,7 @@ class InvoiceController extends Controller
         //
 
         $request->validate([
+            't_id' => 'required',
             'penjualan' => 'required',
             'tagihan' => 'required',
             'jumlah_bayar' => 'required',
@@ -147,7 +148,7 @@ class InvoiceController extends Controller
         // Print receipt
         $printer->printReceipt();
 
-        return redirect('/dashboardPenjualan');
+        return redirect('/printInvoice');
     }
 
     /**

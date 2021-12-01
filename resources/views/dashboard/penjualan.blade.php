@@ -67,6 +67,7 @@
 @section('container')
     
     <h1>Penjualan</h1>
+    <h5 id="TID">TID : {{ $TIDs }}</h5>
 
     <div class="container-fluid d-flex justify-content-center mt-4 row">
         @foreach($produk as $value)
@@ -82,6 +83,7 @@
                     @csrf
                         <div class="qty mt-4 m-auto">
                             <input type="hidden" class="form-control" id="id_produk" name="id_produk" value="{{ $value->id }}">
+                            <input type="hidden" class="t_id form-control" id="t_id" name="t_id" value="{{ $TIDs }}" readonly>
                             <input type="hidden" class="form-control" id="nama_produk" name="nama_produk" value="{{ $value->nama_produk }}">
                             <input type="hidden" class="harga-form form-control" id="harga_produk" name="harga_produk" value="{{ $value->harga_produk }}">
                             <label class="col-form-label d-flex justify-content-center">TOTAL</label>
@@ -99,7 +101,7 @@
             <button class="btn btn-lg btn-pill btn-primary mt-5" id="sub">PESAN</button>
         </div>
         <div class="d-flex justify-content-center mt-1">
-            <a href="{{ route('dashboardInvoice.create') }}" class="btn btn-lg btn-pill btn-danger mt-5" >Close Order</a>
+            <a href="printClosed" class="btn btn-lg btn-pill btn-danger mt-5" >Close Order</a>
         </div>
         @yield('modal')
     </div>
@@ -108,21 +110,12 @@
 
   @section('scripts')
 
-    <script>
+    <script type="text/javascript">
         //
-        submitForms = function() {
-            $("form").each(function(){
-                $.ajax({
-                    url:"{{ route('dashboardPenjualan.index') }}",
-                    method:'POST',
-                    data: $(this).serialize(),
-                    success: function(r){
-                        //...
-                        window.location.href = "{{ route('dashboardInvoice.index') }}"
-                    }
-                });
-             });
-         }
+    </script>
+    
+    <script>
+
     </script>
 
     <script>

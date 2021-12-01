@@ -33,23 +33,23 @@
     @foreach($produk as $value)
 
         <div class="col mt-2">
-        <div class="card" style="width: 25rem;">
-            <h1 class="card-title d-flex justify-content-center">{{ $value->nama_produk }}</h1>
-            <div class="card-body">
-                <div>
-                    <h5 class="card-title">harga : {{ $value->harga_produk }}</h5>
+            <div class="card" style="width: 25rem;">
+                <h1 class="card-title d-flex justify-content-center">{{ $value->nama_produk }}</h1>
+                <div class="card-body">
+                    <div>
+                        <h5 class="card-title">harga : {{ $value->harga_produk }}</h5>
+                    </div>
+                
+                {{-- <button href="{{ route('dashboardProduk.edit', $value->id) }}" class="btn btn-primary">edit produk</button> --}}
+                <button type="button" href="{{ route('dashboardProduk.edit', $value->id) }}" class="btn btn-primary editbtn d-inline" data-toggle="modal" data-target="#exampleModal{{ $value->id }}">edit</button>
+                
+                <form action="{{ route('dashboardProduk.destroy', $value->id) }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="btn bg-danger btn-primary border-0" onclick="return confirm('menghapus produk {{ $value->nama_produk }}?')">hapus produk</button>
+                </form>
                 </div>
-            
-            {{-- <button href="{{ route('dashboardProduk.edit', $value->id) }}" class="btn btn-primary">edit produk</button> --}}
-            <button type="button" href="{{ route('dashboardProduk.edit', $value->id) }}" class="btn btn-primary editbtn d-inline" data-toggle="modal" data-target="#exampleModal{{ $value->id }}">edit</button>
-            
-            <form action="{{ route('dashboardProduk.destroy', $value->id) }}" method="POST" class="d-inline">
-                @csrf
-                @method('delete')
-                <button type="submit" class="btn bg-danger btn-primary border-0" onclick="return confirm('menghapus produk {{ $value->nama_produk }}?')">hapus produk</button>
-            </form>
             </div>
-        </div>
         </div>
         @include('dashboard.modal.editProduk')
     @endforeach

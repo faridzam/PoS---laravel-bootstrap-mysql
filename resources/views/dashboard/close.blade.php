@@ -46,12 +46,30 @@
           <i>Logout</i>
         </button>
     </form>
+
+    <div class="container d-flex justify-content-center">
+        <a href="printClose" class="btn btn-sm btn-primary" id="print-button">PRINT</a>
+    </div>
+
 </div>
 @endsection
 
 @section('scripts')
+
     <script>
-        
+        $('#print-button').click(function(e){
+            e.preventDefault();
+        var route = "{{ URL('/printClose') }}";
+        var formData = {
+                {{ $data }}
+        });
+            $.post(route, formData, function(data){
+                if(data.success == 'true')
+                    alert('Cetak Data Berhasil...');
+                else
+                    alert('Cetak Data GAGAL...');
+            });
+        });
     </script>
 
     <script>
