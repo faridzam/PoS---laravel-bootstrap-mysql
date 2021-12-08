@@ -22,6 +22,7 @@ class InvoiceController extends Controller
     {
         //
         $invoice = invoice::all();
+        $lateinv = DB::table('invoices')->latest('created_at')->first();
         $penjualan = penjualan::all();
         $latest = DB::table('penjualans')->latest('created_at')->first();
 
@@ -34,7 +35,7 @@ class InvoiceController extends Controller
             $hartot = $pesananBaru->sum('jumlah');
         }
 
-        return view('dashboard.invoice', compact('penjualan', 'latest', 'dtn', 'pesananBaru', 'invoice', 'hartot'));
+        return view('dashboard.invoice', compact('penjualan', 'latest', 'dtn', 'pesananBaru', 'invoice', 'hartot', 'lateinv'));
     }
 
     /**
@@ -61,17 +62,29 @@ class InvoiceController extends Controller
     {
         //
 
-        $request->validate([
-            't_id' => 'required',
-            'penjualan' => 'required',
-            'tagihan' => 'required',
-            'jumlah_bayar' => 'required',
-            'kembalian' => 'required'
-        ]);
+        switch ($request->input('action'))
+        {
+            case 'store':
+                $request->validate([
+                    't_id' => 'required',
+                    'penjualan' => 'required',
+                    'tagihan' => 'required',
+                    'jumlah_bayar' => 'required',
+                    'kembalian' => 'required'
+                ]);
+        
+                invoice::create($request->all());
+        
+                return redirect('dashboardInvoice');
+            break;
 
-        invoice::create($request->all());
+            case 'print':
+                return redirect('printInvoice');
+            break;
 
-        return redirect('/printInvoice');
+        }
+
+        
     }
 
     /**
@@ -148,7 +161,7 @@ class InvoiceController extends Controller
         // Print receipt
         $printer->printReceipt();
 
-        return redirect('/printInvoice');
+        return redirect('printInvoice');
     }
 
     /**

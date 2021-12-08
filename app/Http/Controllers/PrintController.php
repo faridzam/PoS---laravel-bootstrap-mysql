@@ -50,8 +50,10 @@ class PrintController extends Controller
         $transaction_id = $dtn;
         
         // Set items
-        $jsons = $lateinv->penjualan;
-        $items = json_decode($jsons, true);
+        //$jsons = $lateinv->penjualan;
+        //$items = json_decode($jsons, true);
+
+        $items = json_decode($pesananBaru, true);
 
         // Init printer
         $printer = new ReceiptPrinter;
@@ -90,13 +92,16 @@ class PrintController extends Controller
         // Print receipt
         $printer->printReceipt();
 
+        //return redirect()->route(route: 'dashboardInvoice.index')->with('SUKSES!', 'pesanan telah diprint');
+
         return redirect('/dashboardPenjualan');
     }
 
 
     //DEPOSIT
     public function printDeposit(deposit $deposit){
-        $deposit = deposit::orderBy('created_at', 'desc')->get();
+        //$deposit = deposit::orderBy('created_at', 'desc')->get();
+        $deposit = deposit::whereDate('created_at', Carbon::today())->get();
 
         function addSpaces($string = '', $valid_string_length = 0) {
             if (strlen($string) < $valid_string_length) {
@@ -110,9 +115,9 @@ class PrintController extends Controller
         }
 
         try {
-            $connector = new NetworkPrintConnector("10.59.151.245", 9100);
+            $connector = new NetworkPrintConnector("10.133.11.90", 9100);
             
-            /* Print a "Hello world" receipt" */
+            /* Print a "DEPOSIT" receipt" */
             $printer = new Printer($connector);
 
             $printer->feed();
@@ -125,16 +130,16 @@ class PrintController extends Controller
             foreach ($deposit as $item) {
                 
                 //Current item ROW 1
-                $name_lines = str_split($item['created_at'], 20);
-                foreach ($name_lines as $k => $l) {
+                $tanggal = str_split($item['created_at'], 20);
+                foreach ($tanggal as $k => $l) {
                     $l = trim($l);
-                    $name_lines[$k] = addSpaces($l, 26);
+                    $tanggal[$k] = addSpaces($l, 26);
                 }
             
-                $qtyx_price = str_split($item['id'], 15);
-                foreach ($qtyx_price as $k => $l) {
+                $depo_id = str_split($item['id'], 15);
+                foreach ($depo_id as $k => $l) {
                     $l = trim($l);
-                    $qtyx_price[$k] = addSpaces($l, 15);
+                    $depo_id[$k] = addSpaces($l, 15);
                 }
             
                 $total_price = str_split($item['nominal'], 8);
@@ -145,18 +150,18 @@ class PrintController extends Controller
             
                 $counter = 0;
                 $temp = [];
-                $temp[] = count($name_lines);
-                $temp[] = count($qtyx_price);
+                $temp[] = count($tanggal);
+                $temp[] = count($depo_id);
                 $temp[] = count($total_price);
                 $counter = max($temp);
             
                 for ($i = 0; $i < $counter; $i++) {
                     $line = '';
-                    if (isset($name_lines[$i])) {
-                        $line .= ($name_lines[$i]);
+                    if (isset($tanggal[$i])) {
+                        $line .= ($tanggal[$i]);
                     }
-                    if (isset($qtyx_price[$i])) {
-                        $line .= ($qtyx_price[$i]);
+                    if (isset($depo_id[$i])) {
+                        $line .= ($depo_id[$i]);
                     }
                     if (isset($total_price[$i])) {
                         $line .= ($total_price[$i]);
@@ -197,7 +202,7 @@ class PrintController extends Controller
         }
 
         try {
-            $connector = new NetworkPrintConnector("10.59.151.245", 9100);
+            $connector = new NetworkPrintConnector("10.133.11.90", 9100);
             
             /* Print a "Hello world" receipt" */
             $printer = new Printer($connector);
