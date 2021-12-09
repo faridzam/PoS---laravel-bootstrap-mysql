@@ -93,8 +93,8 @@ class PrintController extends Controller
         $printer->printReceipt();
 
         //return redirect()->route(route: 'dashboardInvoice.index')->with('SUKSES!', 'pesanan telah diprint');
+        return redirect('/dashboardInvoice');
 
-        return redirect('/dashboardPenjualan');
     }
 
 
@@ -115,7 +115,7 @@ class PrintController extends Controller
         }
 
         try {
-            $connector = new NetworkPrintConnector("10.133.11.90", 9100);
+            $connector = new NetworkPrintConnector("10.68.123.137", 9100);
             
             /* Print a "DEPOSIT" receipt" */
             $printer = new Printer($connector);
@@ -202,7 +202,7 @@ class PrintController extends Controller
         }
 
         try {
-            $connector = new NetworkPrintConnector("10.133.11.90", 9100);
+            $connector = new NetworkPrintConnector("10.68.123.137", 9100);
             
             /* Print a "Hello world" receipt" */
             $printer = new Printer($connector);

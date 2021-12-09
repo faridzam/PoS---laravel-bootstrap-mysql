@@ -67,7 +67,7 @@
 @section('container')
     
     <h1>Penjualan</h1>
-    <h5 id="TID">TID : {{ $TIDs }}</h5>
+    <p id="TID">TID : {{ $TIDs }}</p>
 
     <div class="container-fluid d-flex justify-content-center mt-4 row">
         @foreach($produk as $value)

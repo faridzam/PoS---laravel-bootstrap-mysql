@@ -75,7 +75,7 @@ class InvoiceController extends Controller
         
                 invoice::create($request->all());
         
-                return redirect('dashboardInvoice');
+                return redirect('dashboardPenjualan');
             break;
 
             case 'print':
