@@ -22,6 +22,15 @@
           </div>
       @enderror
     </div>
+    <div class="form-group">
+        <label for="kategoriP">Kategori</label>
+        <input type="radio" class="btn-check" id="kategori_produk" name="kategori_produk" @error('harga_produk') is-invalid @enderror placeholder="Harga Produk">
+        @error('harga_produk')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
+      </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 
@@ -40,12 +49,12 @@
                         <h5 class="card-title">harga : {{ $value->harga_produk }}</h5>
                     </div>
                 
-                <button type="button" href="{{ route('dashboardProduk.edit', $value->id) }}" class="btn btn-primary editbtn d-inline" data-toggle="modal" data-target="#exampleModal{{ $value->id }}">edit</button>
+                <button type="button" href="{{ route('dashboardProduk.edit', $value->id) }}" class="btn btn-primary editbtn d-inline" data-toggle="modal" data-target="#exampleModal{{ $value->id }}"><span data-feather="edit"></span></button>
                 
                 <form action="{{ route('dashboardProduk.destroy', $value->id) }}" method="POST" class="d-inline">
                     @csrf
                     @method('delete')
-                    <button type="submit" class="btn bg-danger btn-primary border-0" onclick="return confirm('menghapus produk {{ $value->nama_produk }}?')">hapus produk</button>
+                    <button type="submit" class="btn bg-danger btn-primary border-0" onclick="return confirm('menghapus produk {{ $value->nama_produk }}?')"><span data-feather="trash"></span></button>
                 </form>
                 </div>
             </div>

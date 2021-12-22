@@ -115,7 +115,7 @@ class PrintController extends Controller
         }
 
         try {
-            $connector = new NetworkPrintConnector("10.68.123.137", 9100);
+            $connector = new CupsPrintConnector("esc-saloka", 9100);
             
             /* Print a "DEPOSIT" receipt" */
             $printer = new Printer($connector);
@@ -202,7 +202,7 @@ class PrintController extends Controller
         }
 
         try {
-            $connector = new NetworkPrintConnector("10.68.123.137", 9100);
+            $connector = new CupsPrintConnector("esc-saloka", 9100);
             
             /* Print a "Hello world" receipt" */
             $printer = new Printer($connector);

@@ -2,7 +2,7 @@
 
 @section('styles')
     <style>
-                .qty .count {
+        .qty .count {
             color: #000;
             display: inline-block;
             vertical-align: top;
@@ -37,10 +37,10 @@
             background-clip: padding-box;
         }
         .minus:hover{
-            background-color: red !important;
+            background-color: lightcoral !important;
         }
         .plus:hover{
-            background-color: green !important;
+            background-color: lightgreen !important;
         }
         /*Prevent text selection*/
         span{
@@ -68,6 +68,10 @@
     
     <h1>Penjualan</h1>
     <p id="TID">TID : {{ $TIDs }}</p>
+
+    <div>
+        <h2>Kategori:</h2>
+    </div>
 
     <div class="container-fluid d-flex justify-content-center mt-4 row">
         @foreach($produk as $value)
@@ -99,6 +103,9 @@
         @endforeach
         <div class="d-flex justify-content-center mt-5">
             <button class="btn btn-lg btn-pill btn-primary mt-5" id="sub">PESAN</button>
+        </div>
+        <div class="d-flex justify-content-center mt-1">
+            <a href="dashboardInvoice" class="btn btn-lg btn-pill btn-primary mt-5" >Last Invoice</a>
         </div>
         <div class="d-flex justify-content-center mt-1">
             <a href="printClosed" class="btn btn-lg btn-pill btn-danger mt-5" >Close Order</a>

@@ -10,7 +10,7 @@ return [
     | Valid values are: cups, network, windows
     |
     */
-    'connector_type' => 'network',
+    'connector_type' => 'cups',
     /*
     |--------------------------------------------------------------------------
     | Printer connector descriptor
@@ -19,7 +19,7 @@ return [
     | Typically printer name or IP address.
     |
     */
-    'connector_descriptor' => '10.68.123.137',
+    'connector_descriptor' => 'esc-saloka',
     /*
     |--------------------------------------------------------------------------
     | Printer port
