@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorepenjualanRequest;
 use App\Http\Requests\UpdatepenjualanRequest;
+use Illuminate\Http\Request;
 
 class PenjualanController extends Controller
 {
@@ -100,6 +101,12 @@ class PenjualanController extends Controller
     public function update(UpdatepenjualanRequest $request, penjualan $penjualan)
     {
         //
+        if($request->id && $request->quantity){
+            $cart = session()->get('cart');
+            $cart[$request->id]["quantity"] = $request->quantity;
+            session()->put('cart', $cart);
+            session()->flash('success', 'Cart updated successfully');
+        }
     }
 
     /**
@@ -111,5 +118,44 @@ class PenjualanController extends Controller
     public function destroy(penjualan $penjualan)
     {
         //
+    }
+
+    public function cart()
+    {
+        return view('dashboard.cart');
+    }
+
+    public function addToCart($id)
+    {
+        $product = produk::findOrFail($id);
+           
+        $cart = session()->get('cart', []);
+   
+        if(isset($cart[$id])) {
+            $cart[$id]['quantity']++;
+        } else {
+            $cart[$id] = [
+                "name" => $product->nama_produk,
+                "quantity" => 1,
+                "price" => $product->harga_produk,
+                "image" => $product->kategori_produk
+            ];
+        }
+           
+        session()->put('cart', $cart);
+        return redirect()->back()->with('success', 'Product added to cart successfully!');
+    }
+   
+
+    public function remove(Request $request)
+    {
+        if($request->id) {
+            $cart = session()->get('cart');
+            if(isset($cart[$request->id])) {
+                unset($cart[$request->id]);
+                session()->put('cart', $cart);
+            }
+            session()->flash('success', 'Product removed successfully');
+        }
     }
 }

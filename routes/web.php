@@ -30,6 +30,11 @@ Route::resource('dashboardDeposit', DepositController::class)->middleware('auth'
 Route::resource('dashboardProduk', ProdukController::class)->middleware('auth');
 
 Route::resource('dashboardPenjualan', PenjualanController::class)->middleware('auth');
+Route::get('cart', [PenjualanController::class, 'cart'])->name('cart');
+Route::get('add-to-cart/{id}', [PenjualanController::class, 'addToCart'])->name('add.to.cart');
+Route::patch('update-cart', [PenjualanController::class, 'update'])->name('update.cart');
+Route::delete('remove-from-cart', [PenjualanController::class, 'remove'])->name('remove.from.cart');
+
 
 Route::resource('dashboardInvoice', InvoiceController::class)->middleware('auth');
 
