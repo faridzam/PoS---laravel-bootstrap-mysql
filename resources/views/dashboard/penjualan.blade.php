@@ -118,7 +118,7 @@
                     <div class="product_box">
                         <div class="caption">
                             <h4>{{ $product->nama_produk }}</h4>
-                            <p><strong>Price: </strong> {{ $product->harga_produk }}$</p>
+                            <p><strong>Price: </strong> {{ $product->harga_produk }}</p>
                             <p class="btn-holder"><a href="{{ route('add.to.cart', $product->id) }}" class="btn btn-warning btn-block text-center" role="button">Add to cart</a> </p>
                         </div>
                     </div>
@@ -149,11 +149,11 @@
                                     </div>
                                 </div>
                             </td>
-                            <td data-th="Price">${{ $details['price'] }}</td>
-                            <td data-th="Quantity">
-                                <input type="number" value="{{ $details['quantity'] }}" class="form-control quantity update-cart" />
+                            <td data-th="Price">{{ $details['price'] }}</td>
+                            <td data-th="Quantity" class="easy-get {{ $details['name'] }}">    
+                                <input type="text" onClick="this.select();" value="{{ $details['quantity'] }}" class="form-control quantity update-cart easy-put"/>
                             </td>
-                            <td data-th="Subtotal" class="text-center">${{ $details['price'] * $details['quantity'] }}</td>
+                            <td data-th="Subtotal" class="text-center">{{ $details['price'] * $details['quantity'] }}</td>
                             <td class="actions" data-th="">
                                 <button class="btn btn-danger btn-sm remove-from-cart"><i class="fa fa-trash-o"></i></button>
                             </td>
@@ -163,7 +163,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="5" class="text-right"><h3><strong>Total ${{ $total }}</strong></h3></td>
+                    <td colspan="5" class="text-right"><h3><strong>Total {{ $total }}</strong></h3></td>
                 </tr>
                 <tr>
                     <td colspan="5" class="text-right">
@@ -179,10 +179,6 @@
   @endsection
 
   @section('scripts')
-
-    <script type="text/javascript">
-        //
-    </script>
     
     <script>
 
@@ -279,5 +275,9 @@
    
 </script>
 
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
+        crossorigin="anonymous">
+</script>
       
   @endsection
